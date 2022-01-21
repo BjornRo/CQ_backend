@@ -1,0 +1,31 @@
+version: '3.9'
+
+  redis:
+    container_name: redis
+    build:
+      context: ./rejson
+      dockerfile: rejson.dockerfile
+    ports:
+      - 6379:6379
+    command: redis-server
+
+  simulator_script:
+    container_name: simulator_script
+    restart: always
+    build:
+      context: ./simulator_script
+      dockerfile: simulator_script.dockerfile
+    command: python3 main.pyose
+
+  fastapi:
+    container_name: fastapi
+    restart: always
+    build:
+      context: ./fastapi
+      dockerfile: fastapi.dockerfile
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 #--log-level critical
+    ports:
+      - 8000:8000
+    depends_on:
+      - redis
+      - simulator_script
