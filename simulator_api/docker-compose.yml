@@ -15,7 +15,7 @@ version: '3.9'
     build:
       context: ./simulator_script
       dockerfile: simulator_script.dockerfile
-    command: python3 main.pyose
+    command: python3 main.py
 
   fastapi:
     container_name: fastapi
