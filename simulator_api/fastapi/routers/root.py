@@ -31,9 +31,11 @@ api_responses = {
         "content": {
             "application/json": {
                 "example": {
-                    "key_x": 42,
-                    "key_y": 1337,
-                    "time": "2000-01-31T11:22:33.444444"
+                    "response": {
+                        "key_x": 42,
+                        "key_y": 1337,
+                        "time": "2000-01-31T11:22:33.444444",
+                    },
                 }
             }
         }
@@ -42,8 +44,10 @@ api_responses = {
 }
 
 # Routing
+
+
 @router.get("/", response_model=ResponseData,
-            responses=api_responses, # type:ignore
+            responses=api_responses,  # type:ignore
             include_in_schema=True)
 async def root():
     data = client.get("data")
